@@ -1,0 +1,407 @@
+Regions
+-------
+AR	Argentina
+AT	Austria
+AU	Australia
+BE	Belgium
+BR	Brazil
+CA	Canada
+CH	Switzerland
+CZ	Czech Republic
+DE	Germany
+DK	Denmark
+EE	Estonia
+ES	Spain
+FI	Finland
+FR	France
+GB	United Kingdom
+HU	Hungary
+ID	Indonesia
+IE	Ireland
+IN	India
+IT	Italy
+JP	Japan
+KR	South Korea
+LT	Lithuania
+MX	Mexico
+NL	Netherlands
+NO	Norway
+NZ	New Zealand
+PH	Philippines
+PL	Poland
+PT	Portugal
+RU	Russia
+SE	Sweden
+TR	Turkey
+US	United States of America
+ZA	South Africa
+
+
+Providers
+---------
+7plus
+AMC Plus
+AMC on Demand
+ARROW
+Acorn TV
+AcornTV Amazon Channel
+Alamo on Demand
+All 4
+Alleskino
+Alt Balaji
+Amazon Arthaus Channel
+Amazon Prime Video
+Amazon Video
+Amediateka
+Animax Plus Amazon Channel
+Anime Digital Networks
+Anime On Demand
+Apple TV Plus
+Apple iTunes
+Argo
+Arte
+ArthouseCNMA
+AsianCrush
+Atres Player
+BBC America
+BBC Player Amazon Channel
+BBC iPlayer
+BFI Player
+BFI Player Amazon Channel
+BINGE
+Bbox VOD
+Be TV Go
+Beamafilm
+Belas Artes à La Carte
+Believe
+Bet+ Amazon Channel
+Bioskop Online
+Blim
+Blockbuster
+Bookmyshow
+Boomerang
+Boomerang Amazon Channel
+BoxOffice
+Bravo TV
+BritBox
+BritBox Amazon Channel
+BroadwayHD
+C More
+CBC Gem
+CBS
+CGood TV
+CINE
+CONTAR
+CONtv
+CTV
+Canal VOD
+Canal+
+Catchplay
+Chai Flicks
+Chili
+Cineasterna
+Cinemas a la Demande
+Cinemax Amazon Channel
+Cineplex
+Cinépolis KLIC
+Claro video
+Classix
+Club Illico
+Comhem Play
+Crackle
+Crave
+Crave Plus
+Crave Starz
+Criterion Channel
+Curiosity Stream
+Curzon Home Cinema
+DIRECTV
+DIRECTV GO
+DOCSVILLE
+Darkmatter TV
+Das Erste Mediathek
+Dekkoo
+Disney Plus
+DocAlliance Films
+DocPlay
+Dogwoof On Demand
+Dove Channel
+Draken Films
+EPIC ON
+Elisa Viihde
+EntertainTV
+Epix
+Eros Now
+FILMRISE
+FXNow
+FandangoNOW
+Fandor
+Fandor Amazon Channel
+Fetch TV
+Film Movement Plus
+Film1
+Filmin
+Filmin Latino
+Filmin Plus
+Filmo TV
+Filmoteket
+Filmstriben
+Filmtastic
+Filmtastic Amazon Channel
+Filmzie
+Flimmit
+Flix Premiere
+FlixFling
+FlixOlé
+Fox Play
+Fox Premium
+Foxtel Now
+Freeform
+Funimation Now
+GOSPEL PLAY
+GYAO
+Global TV
+Globo Play
+Go3
+Google Play Movies
+GuideDoc
+HBO
+HBO Go
+HBO Max
+HBO Now
+HBO Now Amazon Channel
+HBO Portugal
+Hallmark Movies
+Hallmark Movies Now Amazon Channel
+Here TV
+Hi-YAH
+HiDive
+History Play
+History Vault
+Hoichoi
+Hollystar
+Hollywood Suite
+Home of Horror
+Hoopla
+Horizon
+Horrify
+Hotstar
+Hulu
+Hungama Play
+IFFR Unleashed
+ILLICO
+IMDb TV
+IPLA
+ITV Player
+IndieFlix
+Infinity
+Ivi
+Jio Cinema
+Joyn
+Joyn Plus
+KPN
+Kanopy
+Kino on Demand
+KinoPop
+Kirjastokino
+Kividoo
+Klik Film
+Knowledge Network
+KoreaOnDemand
+La Cinetek
+La Toile
+Laugh Out Loud
+Libreflix
+Lifetime
+Lifetime Movie Club
+Lionsgate Play
+Looke
+MAX Stream
+MX Player
+MZ Choice Amazon Channel
+Magellan TV
+Magnolia Selects
+ManoramaMax
+Max Go
+Maxdome
+Mediaset Play
+Meo
+Microsoft Store
+Mitele 
+MovieSaints
+Movistar Play
+Movistar Plus
+Mubi
+Mubi Amazon Channel
+My5
+NFB
+NLZIET
+NOW
+NPO Start
+NRK TV
+Naver Store
+Neon TV
+NetMovies
+Netflix
+Netflix Kids
+Netzkino
+Nickhits Amazon Channel
+Night Flight Plus
+Noovo
+Now TV
+O2 TV
+OCS Go
+OVID
+Oi Play
+Okko
+Oldflix
+Orange VOD
+OzFlix
+PBS
+PBS Kids Amazon Channel
+PBS Masterpiece Amazon Channel
+Pantaflix
+Pantaya
+Pantaya Amazon Channel
+Paramount Plus
+Pathé Thuis
+Peacock
+Peacock Premium
+Picl
+Player
+Plex
+Pluto TV
+Popcornflix
+Popcorntimes
+Premier
+Pure Flix
+QFT Player
+QubitTV
+Quickflix
+Quickflix Store
+RTBF
+RTL Play
+RTPplay
+Rai Play
+Rakuten TV
+Rakuten Viki
+Redbox
+Retrocrush
+Revry
+Ruutu
+SALTO
+SBS On Demand
+SF Anytime
+SVT
+Screambox
+Screambox Amazon Channel
+Shadowz
+ShemarooMe
+Shout! Factory TV
+ShowMax
+Showtime
+Showtime Amazon Channel
+Shudder
+Shudder Amazon Channel
+Sixplay
+Sky
+Sky Go
+Sky Store
+Sky Ticket
+Sky X
+Sling TV
+Sony Liv
+Sooner
+Spamflix
+Spectrum On Demand
+Spuul
+Stan
+Starz
+Starz Play Amazon Channel
+Strim
+SumoTV
+Sun Nxt
+Sundance Now
+Supo Mungam Plus
+SwissCom
+Syfy
+TBS
+TCM
+TNT
+TNTGo
+TV 2
+TV Now
+TVF Play
+TVNZ
+Talk Talk TV
+Tata Sky
+Telecine Play
+Telia Play
+Telstra TV
+Tenk
+The Film Detective
+The Roku Channel
+Timvision
+Topic
+TriArt Play
+True Story
+Tubi TV
+Turk on Video
+TvIgle
+U-NEXT
+USA Network
+Universcine
+Urban Movie Channel
+VIX 
+VOD Club
+VOD Poland
+VRT nu
+VRV
+VUDU Free
+VVVVID
+Viafree
+Viaplay
+Vid Plus
+Viddla
+Videobuster
+Videoland
+Vidio
+Viewster Amazon Channel
+Viu
+Vodacom Video Play
+Volta
+Voot
+Vudu
+WOW Presents Plus
+WWE Network
+Watch4
+Watcha
+Watchbox
+Wink
+Yelo Play
+Yle Areena
+YouTube
+YouTube Free
+YouTube Premium
+Yupp TV
+ZDF
+ZDF Herzkino Amazon Channel
+Zee5
+Ziggo TV
+aha
+blutv
+dTV
+digital TIFF Bell Lightbox
+filmfriend
+fuboTV
+genflix
+iWantTFC
+iciTouTV
+iflix
+maxdome Store
+puhutv
+realeyz
+tru TV
+tvo
+tvzavr
+wavve

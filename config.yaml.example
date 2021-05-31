@@ -1,0 +1,9 @@
+tmdbApiKey: 
+providerRegion: GB
+radarrApiKey: 
+radarrUrl: http://localhost:7878
+requiredProviders:
+    - Netflix
+    - Amazon Prime Video
+    - Disney Plus
+tagPrefix: elsewherr-
