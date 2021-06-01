@@ -19,9 +19,24 @@ Why not? What you do with this information is up to you. You might want to remov
 - Run `python -m pip -r requirements.txt` or `pip -r requirements.txt`
 - Get an account at TMDb (https://www.themoviedb.org/) and grab an API key
 - Rename `config.yaml.example` to `config.yaml`
-- Edit `config.yaml` to include your Radarr API key and URL, your TMDb key, and the name of the providers you wish to monitor (a list is available in `providers.txt`, but you can also run the `providers.py` script to grab an up to date list). Providers must be entered *exactly* as they appear in the Providers list from TMDb to work. 
+- Edit `config.yaml` as per the table below
 - Run `python elsewherr.py`, or `run.bat` to run the script.
+
+You might want to setup a scheduled task or something to run this regularly to keep the list up to date as moves are added to or drop off streaming services.
+
+**Parameters**
+
+|Parameter|Description|
+|---|---|
+|tmdbApiKey|API Key for The Movie Database|
+|providerRegion|2 digit region code to use to check the availability of movies on that regions streaming service. The `providers.txt` file contains a list of codes|
+|radarrApiKey|Your API key for Radarr|
+|radarrUrl|Full URL including port to Radarr|
+|requiredProviders|List of the providers you would like to search for. Providers must be entered *exactly* as they appear in the Providers list from TMDb to work. |
+|tagPrefix|Prefix that will be included in the tags added to Radarr|
+
+A list of Regions and Providers is available in `providers.txt`, but you can also run the `providers.py` script to grab an up to date list. 
 
 **Note:** The prefix is important, its used to remove all tags before re-adding to catch movies being removed from services. If you don't use a prefix, this script will remove all your tags from your movies. You can change it from the default *elsewherr-*, just make sure its unique.
 
-You might want to setup a scheduled task or something to run this regularly to keep the list up to date as moves are added to or drop off streaming services.
+
