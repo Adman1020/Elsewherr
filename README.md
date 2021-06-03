@@ -16,7 +16,7 @@ Why not? What you do with this information is up to you. You might want to remov
 
 **How do I use it?**
 - Download, clone, or otherwise obtain this repo and put it somewhere
-- Run `python -m pip -r requirements.txt` or `pip -r requirements.txt`
+- Run `python -m pip install -r requirements.txt` or `pip -r requirements.txt`
 - Get an account at TMDb (https://www.themoviedb.org/) and grab an API key
 - Rename `config.yaml.example` to `config.yaml`
 - Edit `config.yaml` as per the table below
