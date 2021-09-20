@@ -50,7 +50,7 @@ for movie in movies:
     try:
         providers = tmdbProviders["results"][config["providerRegion"]]["flatrate"]
     except KeyError:
-        print("No Flatrate Poviders")
+        print("No Flatrate Providers")
         continue
 
     # Remove all provider tags from movie
