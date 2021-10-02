@@ -2,6 +2,7 @@ import requests
 import re
 import time
 import yaml
+import threading
 
 config = yaml.safe_load(open("config.yaml"))
 requiredProvidersLower = [re.sub('[^A-Za-z0-9]+', '', x).lower() for x in config["requiredProviders"]]
@@ -35,13 +36,7 @@ for existingTag in existingTags:
 # Get all Movies from Radarr
 radarrResponse = requests.get(config["radarrUrl"]+'/api/v3/movie', headers=radarrHeaders)
 movies = radarrResponse.json()
-
-# Work on each movie
-for movie in movies:
-    #time.sleep(1)
-    print("-------------------------------------------------------------------------------------------------")
-    print("Movie: "+movie["title"])
-    print("TMDB ID: "+str(movie["tmdbId"]))
+def process_movie(movie):
 
     tmdbResponse = requests.get('https://api.themoviedb.org/3/movie/'+str(movie["tmdbId"])+'/watch/providers?api_key='+config["tmdbApiKey"], headers=tmdbHeaders)
     tmdbProviders = tmdbResponse.json()
@@ -49,9 +44,11 @@ for movie in movies:
     # Check that flatrate providers exist for the chosen region
     try:
         providers = tmdbProviders["results"][config["providerRegion"]]["flatrate"]
-    except KeyError:
-        print("No Flatrate Providers")
-        continue
+    except KeyError as e:
+        # print(e)
+        # print("No Flatrate Providers")
+        # print(tmdbProviders["results"][config["providerRegion"]])
+        return
 
     # Remove all provider tags from movie
     updateTags = movie.get("tags", [])
@@ -62,12 +59,13 @@ for movie in movies:
             continue
 
     # Add all required providers
+    tagToAddPrintList = []
     for provider in providers:
         providerName = provider["provider_name"]
         tagToAdd = (config["tagPrefix"] + re.sub('[^A-Za-z0-9]+', '', providerName)).lower()
         for providerTagToAdd in providerTagsToAdd:
             if tagToAdd in providerTagToAdd["label"]:
-                print("Adding tag "+tagToAdd)
+                tagToAddPrintList.append("Adding tag "+tagToAdd)
                 updateTags.append(providerTagToAdd["id"])
 
     update = movie
@@ -75,5 +73,18 @@ for movie in movies:
 
     # Update movie in Radarr
     radarrUpdate = requests.put(config["radarrUrl"]+'/api/v3/movie', json=update, headers=radarrHeaders)
-    print(radarrUpdate)
-    
+
+    print("\n" + "-------------------------------------------------------------------------------------------------" + "\n"+"Movie: "+movie["title"] + "\n" + "TMDB ID: "+str(movie["tmdbId"]) + "\n" + str(radarrUpdate) + "\n" + str(tagToAddPrintList),flush=True)
+
+
+# Work on each movie
+thread_list =  []
+for movie in movies:
+    #time.sleep(1)
+    thread = threading.Thread(target=process_movie,args=(movie,))
+    thread.daemon = True
+    thread.start()
+    thread_list.append(thread)
+
+for i in thread_list:
+    i.join()
