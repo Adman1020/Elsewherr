@@ -37,6 +37,12 @@ You might want to setup a scheduled task or something to run this regularly to k
 
 A list of Regions and Providers is available in `providers.txt`, but you can also run the `providers.py` script to grab an up to date list. 
 
+**Logging/Debugging**
+
+By default Elsewherr will log all INFO logs out to `elsewhere.log`. If you incluide the '-d' or '--debug' argument when running the script (i.e. `python elsewherr.py -d` or `python elsewherr.py --debug`) it will up the logging to DEBUG and output much more information to the logs.
+
+The log file is overwritten each time the script is run.
+
 **Note:** The prefix is important, its used to remove all tags before re-adding to catch movies being removed from services. If you don't use a prefix, this script will remove all your tags from your movies. You can change it from the default *elsewherr-*, just make sure its unique.
 
 
