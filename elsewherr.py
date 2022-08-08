@@ -51,7 +51,7 @@ for existingTag in existingTags:
     if config["tagPrefix"].lower() in existingTag["label"]:
         logging.debug(f'Adding tag [{existingTag}] to the list of tags to be removed')
         providerTagsToRemove.append(existingTag)
-    if str(existingTag["label"]).replace(config["tagPrefix"], '') in requiredProvidersLower:
+    if str(existingTag["label"]).replace(config["tagPrefix"].lower(), '') in requiredProvidersLower:
         logging.debug(f'Adding tag [{existingTag}] to the list of tags to be added')
         providerTagsToAdd.append(existingTag)
 
