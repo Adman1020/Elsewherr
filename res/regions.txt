@@ -1,0 +1,43 @@
+AE	United Arab Emirates
+AR	Argentina
+AT	Austria
+AU	Australia
+BE	Belgium
+BG	Bulgaria
+BR	Brazil
+CA	Canada
+CH	Switzerland
+CI	Cote D'Ivoire
+CZ	Czech Republic
+DE	Germany
+DK	Denmark
+EE	Estonia
+ES	Spain
+FI	Finland
+FR	France
+GB	United Kingdom
+HK	Hong Kong
+HR	Croatia
+HU	Hungary
+ID	Indonesia
+IE	Ireland
+IN	India
+IT	Italy
+JP	Japan
+KE	Kenya
+KR	South Korea
+LT	Lithuania
+MX	Mexico
+NL	Netherlands
+NO	Norway
+NZ	New Zealand
+PH	Philippines
+PL	Poland
+PT	Portugal
+RS	Serbia
+RU	Russia
+SE	Sweden
+SK	Slovakia
+TR	Turkey
+US	United States of America
+ZA	South Africa

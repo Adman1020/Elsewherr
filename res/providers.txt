@@ -1,52 +1,3 @@
-Regions
--------
-AE	United Arab Emirates
-AR	Argentina
-AT	Austria
-AU	Australia
-BE	Belgium
-BG	Bulgaria
-BR	Brazil
-CA	Canada
-CH	Switzerland
-CI	Cote D'Ivoire
-CZ	Czech Republic
-DE	Germany
-DK	Denmark
-EE	Estonia
-ES	Spain
-FI	Finland
-FR	France
-GB	United Kingdom
-HK	Hong Kong
-HR	Croatia
-HU	Hungary
-ID	Indonesia
-IE	Ireland
-IN	India
-IT	Italy
-JP	Japan
-KE	Kenya
-KR	South Korea
-LT	Lithuania
-MX	Mexico
-NL	Netherlands
-NO	Norway
-NZ	New Zealand
-PH	Philippines
-PL	Poland
-PT	Portugal
-RS	Serbia
-RU	Russia
-SE	Sweden
-SK	Slovakia
-TR	Turkey
-US	United States of America
-ZA	South Africa
-
-
-Providers
----------
 7plus
 ABC
 ABC iview
@@ -60,8 +11,10 @@ AVA CSAL
 AVA HBZ
 AVA VOBB
 Acontra Plus
+Acontra Plus Amazon Channel
 Acorn TV
 AcornTV Amazon Channel
+Action Max Amazon Channel
 Alamo on Demand
 All 4
 Alleskino
@@ -92,8 +45,11 @@ BINGE
 Bbox VOD
 Be TV Go
 Beamafilm
-Belas Artes � La Carte
+Behind the Tree
+Belas Artes à La Carte
 Believe
+Benshi Amazon Channel
+Bet+
 Bet+ Amazon Channel
 Bioskop Online
 Blim
@@ -104,7 +60,6 @@ Bookmyshow
 Boomerang
 Boomerang Amazon Channel
 BoxOffice
-Bravo TV
 BritBox
 BritBox Amazon Channel
 BroadwayHD
@@ -128,11 +83,12 @@ Cinema of Hearts Amazon Channel
 Cinemas a la Demande
 Cinemax Amazon Channel
 Cineplex
-Cinessance
-Cin�polis KLIC
+Cinépolis KLIC
 Claro video
 Classix
 Club Illico
+Cohen Media Amazon Channel
+Comedy Central
 Comedy Central Plus Amazon Channel
 Crackle
 Crave
@@ -153,10 +109,10 @@ Dansk Filmskat
 Darkmatter TV
 Das Erste Mediathek
 Dekkoo
-Discovery Amazon Channel
 Discovery Plus
-Discovery+ Amazon Channel
+Discovery Plus Amazon Channel
 Disney Plus
+Dizi Amazon Channel
 DocAlliance Films
 DocPlay
 DocuBay Amazon Channel
@@ -165,6 +121,7 @@ Dove Channel
 Draken Films
 EPIC ON
 EPIX Amazon Channel
+ESPN Plus
 Edisonline
 Elisa Viihde
 Epix
@@ -187,26 +144,26 @@ Filmin
 Filmin Latino
 Filmin Plus
 Filmlegenden Amazon Channel
+Filmo Amazon Channel
 Filmo TV
 Filmoteket
 Filmstriben
 Filmtastic
 Filmtastic Amazon Channel
 Filmzie
-Flimmit
 Flix Premiere
 FlixFling
-FlixOl�
-FlixOl� Amazon Channel
+FlixOlé
+FlixOlé Amazon Channel
 Foxtel Now
 France TV
 Freeform
 Freevee Amazon Channel
+Full Action Amazon Channel
 Full Moon Amazon Channel
 Funimation Now
 GOSPEL PLAY
 GRJNGO Amazon Channel
-GYAO
 Global TV
 Globoplay
 Go3
@@ -215,17 +172,18 @@ GuideDoc
 HBO
 HBO Go
 HBO Max
-HBO Now
+HBO Max Amazon Channel
+HBO Max Free
 HBO Poland
 HRTi
-Hallamark TV Amazon Channel
 Hallmark Movies
 Hallmark Movies Now Amazon Channel
+Hallmark TV Amazon Channel
 Hayu Amazon Channel
 Here TV
 Hi-YAH
 HiDive
-History
+Historia y Actualidad Amazon Channel
 History Play
 History Vault
 Hoichoi
@@ -244,13 +202,15 @@ Hungama Play
 IFC Amazon Channel
 IFFR Unleashed
 ILLICO
+INA  madelen Amazon Channel
 IPLA
 IROKOTV
-ITV Hub
+ITVX
 Icon Film Amazon Channel
 IndieFlix
 Infinity
 Infinity Selection Amazon Channel
+Insomnia Amazon Channel
 Ivi
 Jio Cinema
 Joyn
@@ -264,8 +224,10 @@ KinoPop
 Kinopoisk
 Kirjastokino
 Kividoo
+Klassiki
 Klik Film
 Knowledge Network
+Kocowa
 KoreaOnDemand
 LINE TV
 La Toile
@@ -275,19 +237,22 @@ Libreflix
 Lifetime
 Lifetime Movie Club
 Lionsgate Play
+Lionsgate Plus
 Looke
 Looke Amazon Channel
 Love Nature Amazon Channel
+Love and Passion Amazon Channel
 MAX Stream
 MGM Amazon Channel
 MTV Plus Amazon Channel
+MUBI
+MUBI Amazon Channel
 MX Player
 MZ Choice Amazon Channel
 Magellan TV
 MagentaTV
 Magnolia Selects
 ManoramaMax
-Max Go
 Mediaset Play
 Meo
 Metrograph
@@ -299,8 +264,6 @@ MovieSaints
 Moviedome Plus Amazon Channel
 Movistar Play
 Movistar Plus
-Mubi
-Mubi Amazon Channel
 My5
 NFB
 NLZIET
@@ -312,9 +275,9 @@ Neon TV
 NetMovies
 Netflix
 Netflix Kids
+Netflix basic with Ads
 Netzkino
 Nexo Plus
-Nick+ Amazon Channel
 Nickhits Amazon Channel
 Night Flight Plus
 Noggin Amazon Channel
@@ -343,20 +306,23 @@ Pantaya Amazon Channel
 Paramount Plus
 Paramount+ Amazon Channel
 Paramount+ Roku Premium Channel
-Path� Thuis
+Paramount+ Showtime
+Pathé Thuis
 Paus
 Peacock
 Peacock Premium
 Pickbox NOW
 Picl
+Planet Horror Amazon Channel
 Play Suisse
 Player
 Plex
 Pluto TV
-Pok�mon Amazon Channel
+Pokémon Amazon Channel
 Pongalo Amazon Channel  
 Popcornflix
 Popcorntimes
+Popflick
 Premier
 Public Domain Movies
 Pure Flix
@@ -372,6 +338,7 @@ RTPplay
 Rai Play
 Rakuten TV
 Rakuten Viki
+Realeyz Amazon Channel
 Redbox
 Retrocrush
 Revry
@@ -383,9 +350,11 @@ STARZPLAY
 STUDIOCANAL PRESENTS Apple TV Channel
 STV Player
 SVT
+Salto Amazon Channel
 Screambox
 Screambox Amazon Channel
 Shadowz
+Shadowz Amazon Channel
 Shahid VIP
 ShemarooMe
 ShortsTV Amazon Channel
@@ -402,9 +371,9 @@ Sixplay
 Sky
 Sky Go
 Sky Store
-Sky Ticket
 Sky X
-Sling TV
+SkyShowtime
+Sling TV Orange and Blue
 Smithsonian Channel
 Smithsonian Channel Amazon Channel
 Sony AXN Amazon Channel
@@ -417,10 +386,13 @@ StackTV Amazon Channel
 Stan
 Star Plus
 Starz
+Starz Amazon Channel
 Starz Play Amazon Channel
 Starz Roku Premium Channel
 Strim
-Studio Canal Amazon Channel
+Studiocanal Presents ALLSTARS Amazon Channel
+Studiocanal Presents Amazon Channel
+Studiocanal Presents MOVIECULT Amazon Channel
 SumoTV
 Sun Nxt
 Sundance Now
@@ -428,16 +400,18 @@ Sundance Now Amazon Channel
 Super Channel Amazon Channel
 Superfresh Amazon Channel
 Supo Mungam Plus
-SwissCom
 Syfy
 TBS
 TCM
+TELETOON+ Amazon Channel
 TNT
 TNTGo
+TOD
 TV 2
 TVCortos Amazon Channel
 TVF Play
 TVNZ
+Takflix
 Tata Play
 Tele2 Play
 Telecine Play
@@ -459,17 +433,18 @@ U-NEXT
 UMC Amazon Channel
 UPC TV
 USA Network
+Universal Pictures
 Universcine
+Universcine Amazon Channel
 Urban Movie Channel
 VI movies and tv
 VIX 
 VOD Club
 VOD Poland
-VRT nu
+VRT MAX
 VRV
 VUDU Free
 VVVVID
-Viafree
 Viaplay
 Viddla
 Videobuster
@@ -485,6 +460,7 @@ Voyo
 Vudu
 W4free
 WAKANIM
+WOW
 WOW Presents Plus
 WWE Network
 Watcha
@@ -493,6 +469,7 @@ WeTV
 Wink
 Yelo Play
 Yle Areena
+Yorck on Demand
 YouTube
 YouTube Free
 YouTube Premium
@@ -502,10 +479,12 @@ ZDF Herzkino Amazon Channel
 Zee5
 Ziggo TV
 aha
+blue TV
 blutv
 dTV
 digital TIFF Bell Lightbox
 filmfriend
+filmingo
 fuboTV
 genflix
 iBAKATV
@@ -519,9 +498,9 @@ meJane
 puhutv
 realeyz
 rtve
+tenplay
 tru TV
 tvo
 tvzavr
 wavve
 wedotv
-SkyShowtime
