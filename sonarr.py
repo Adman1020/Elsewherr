@@ -21,7 +21,7 @@ logging.basicConfig(
     level=args.loglevel, 
     format='%(asctime)s :: %(levelname)s :: %(message)s',
     handlers=[
-        logging.FileHandler(filename=os.path.join(script_directory, 'elsewherr.log')),
+        logging.FileHandler(filename=os.path.join(script_directory, 'sonarr.log')),
         logging.StreamHandler()
     ]
 )
@@ -33,11 +33,10 @@ requiredProvidersLower = [re.sub('[^A-Za-z0-9]+', '', x).lower() for x in config
 logging.debug(f'requiredProvidersLower: {requiredProvidersLower}')
 
 # Request Headers
-radarrHeaders = {'Content-Type': 'application/json', "X-Api-Key":config["radarrApiKey"]}
+sonarrHeaders = {'Content-Type': 'application/json', "X-Api-Key":config["sonarrApiKey"]}
 tmdbHeaders = {'Content-Type': 'application/json'}
 
-# Create all Tags for Providers
-logging.debug('Create all Tags for Providers within Radarr')
+logging.debug('Create all Tags for Providers within Sonarr')
 for requiredProvider in config["requiredProviders"]:
     providerTag = (config["tagPrefix"] + re.sub('[^A-Za-z0-9]+', '', requiredProvider)).lower()
     newTagJson = {
@@ -45,14 +44,14 @@ for requiredProvider in config["requiredProviders"]:
             'id': 0
         }
     logging.debug(f'newTagJson: {newTagJson}')
-    radarrTagsPost = requests.post(config["radarrUrl"]+'/api/v3/tag', json=newTagJson, headers=radarrHeaders)
-    logging.debug(f'radarrTagsPost Response: {radarrTagsPost}')
+    sonarrTagsPost = requests.post(config["sonarrUrl"]+'/api/v3/tag', json=newTagJson, headers=sonarrHeaders)
+    logging.debug(f'sonarrTagsPost Response: {sonarrTagsPost}')
 
 # Get all Tags and create lists of those to remove and add
 logging.debug('Get all Tags and create lists of those to remove and add')
-radarrTagsGet = requests.get(config["radarrUrl"]+'/api/v3/tag', headers=radarrHeaders)
-logging.debug(f'radarrTagsGet Response: {radarrTagsGet}')
-existingTags = radarrTagsGet.json()
+sonarrTagsGet = requests.get(config["sonarrUrl"]+'/api/v3/tag', headers=sonarrHeaders)
+logging.debug(f'sonarrTagsGet Response: {sonarrTagsGet}')
+existingTags = sonarrTagsGet.json()
 logging.debug(f'existingTags: {existingTags}')
 providerTagsToRemove = []
 providerTagsToAdd = []
@@ -65,25 +64,34 @@ for existingTag in existingTags:
         logging.debug(f'Adding tag [{existingTag}] to the list of tags to be added')
         providerTagsToAdd.append(existingTag)
 
-# Get all Movies from Radarr
-logging.debug('Getting all Movies from Radarr')
-radarrResponse = requests.get(config["radarrUrl"]+'/api/v3/movie', headers=radarrHeaders)
-logging.debug(f'radarrResponse Response: {radarrResponse}')
-movies = radarrResponse.json()
-logging.debug(f'Number of Movies: {len(movies)}')
+# Get all Shows from Sonarr
+logging.debug('Getting all Shows from Sonarr')
+sonarrResponse = requests.get(config["sonarrUrl"]+'/api/v3/series', headers=sonarrHeaders)
+logging.debug(f'sonarrResponse Response: {sonarrResponse}')
+shows = sonarrResponse.json()
+logging.debug(f'Number of Shows: {len(shows)}')
 
-# Work on each movie
-logging.debug('Working on all movies in turn')
-for movie in movies:
-    update = movie
+# Work on each show
+logging.debug('Working on all shows in turn')
+for show in shows:
+    update = show
     #time.sleep(1)
     logging.info("-------------------------------------------------------------------------------------------------")
-    logging.info("Movie: "+movie["title"])
-    logging.info("TMDB ID: "+str(movie["tmdbId"]))
-    logging.debug(f'Movie record from Radarr: {movie}')
+    logging.info("show: "+show["title"])
 
-    logging.debug("Getting the available providers for: "+movie["title"])
-    tmdbResponse = requests.get('https://api.themoviedb.org/3/movie/'+str(movie["tmdbId"])+'/watch/providers?api_key='+config["tmdbApiKey"], headers=tmdbHeaders)
+    try:
+        logging.info("show IMDB ID: "+show["imdbId"])
+        imdbSearchResponse = requests.get('https://api.themoviedb.org/3/find/'+str(show["imdbId"])+'?api_key='+config["tmdbApiKey"]+'&language=en-US&external_source=imdb_id', headers=tmdbHeaders)
+        logging.debug(f'imdbSearchResponse Response: {imdbSearchResponse}')
+        tmdbId = imdbSearchResponse.json()["tv_results"][0]["id"]
+        logging.debug('TMDB ID: {tmdbId}')
+    except KeyError:
+        logging.info("Getting the IMDB failed: " + KeyError)
+        continue
+
+    logging.debug(f'Show record from Sonarr: {show}')
+    logging.debug("Getting the available providers for: "+show["title"])
+    tmdbResponse = requests.get('https://api.themoviedb.org/3/tv/'+str(tmdbId)+'/watch/providers?api_key='+config["tmdbApiKey"], headers=tmdbHeaders)
     logging.debug(f'tmdbResponse Response: {tmdbResponse}')
     tmdbProviders = tmdbResponse.json()
     logging.debug(f'Total Providers: {len(tmdbProviders["results"])}')
@@ -97,9 +105,9 @@ for movie in movies:
         logging.info("No Flatrate Providers")
         continue
 
-    # Remove all provider tags from movie
-    logging.debug("Remove all provider tags from movie")
-    updateTags = movie.get("tags", [])
+    # Remove all provider tags from show
+    logging.debug("Remove all provider tags from show")
+    updateTags = show.get("tags", [])
     logging.debug(f'updateTags - Start: {updateTags}')
     for providerIdToRemove in (providerIdsToRemove["id"] for providerIdsToRemove in providerTagsToRemove):
         try:
@@ -109,7 +117,7 @@ for movie in movies:
             continue
 
     # Add all required providers
-    logging.debug("Adding all provider tags to movie")
+    logging.debug("Adding all provider tags to show")
     for provider in providers:
         providerName = provider["provider_name"]
         tagToAdd = (config["tagPrefix"] + re.sub('[^A-Za-z0-9]+', '', providerName)).lower()
@@ -120,11 +128,8 @@ for movie in movies:
 
     logging.debug(f'updateTags - End: {updateTags}')
     update["tags"] = updateTags
-    logging.debug(f'Updated Movie record to send to Radarr: {update}')
+    logging.debug(f'Updated show record to send to Sonarr: {update}')
 
-    # Update movie in Radarr
-    radarrUpdate = requests.put(config["radarrUrl"]+'/api/v3/movie', json=update, headers=radarrHeaders)
-    logging.info(radarrUpdate)
-    
-if config['sonarrApiKey'] and config['sonarrUrl']:
-    import sonarr
+    # Update show in Sonarr
+    sonarrUpdate = requests.put(config["sonarrUrl"]+'/api/v3/series', json=update, headers=sonarrHeaders)
+    logging.info(sonarrUpdate)
