@@ -5,6 +5,9 @@ import yaml
 import logging
 import sys
 import argparse
+import os
+
+script_directory = os.path.dirname(os.path.abspath(__file__))
 
 parser = argparse.ArgumentParser()
 parser.add_argument(
@@ -14,11 +17,18 @@ parser.add_argument(
     default=logging.INFO,
 )
 args = parser.parse_args()    
-logging.basicConfig(level=args.loglevel, filename='elsewherr.log', filemode='w', format='%(asctime)s :: %(levelname)s :: %(message)s')
+logging.basicConfig(
+    level=args.loglevel, 
+    format='%(asctime)s :: %(levelname)s :: %(message)s',
+    handlers=[
+        logging.FileHandler(filename=os.path.join(script_directory, 'elsewherr.log')),
+        logging.StreamHandler()
+    ]
+)
 
 logging.debug('DEBUG Logging Enabled')
 logging.debug('Loading Config and setting the list of required Providers')
-config = yaml.safe_load(open("config.yaml"))
+config = yaml.safe_load(open(os.path.join(script_directory, 'config.yaml')))
 requiredProvidersLower = [re.sub('[^A-Za-z0-9]+', '', x).lower() for x in config["requiredProviders"]]
 logging.debug(f'requiredProvidersLower: {requiredProvidersLower}')
 
@@ -116,3 +126,5 @@ for movie in movies:
     radarrUpdate = requests.put(config["radarrUrl"]+'/api/v3/movie', json=update, headers=radarrHeaders)
     logging.info(radarrUpdate)
     
+if config['sonarrApiKey'] and config['sonarrUrl']:
+    import sonarr
