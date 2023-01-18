@@ -92,7 +92,7 @@ BINGE
 Bbox VOD
 Be TV Go
 Beamafilm
-Belas Artes à La Carte
+Belas Artes ï¿½ La Carte
 Believe
 Bet+ Amazon Channel
 Bioskop Online
@@ -129,7 +129,7 @@ Cinemas a la Demande
 Cinemax Amazon Channel
 Cineplex
 Cinessance
-Cinépolis KLIC
+Cinï¿½polis KLIC
 Claro video
 Classix
 Club Illico
@@ -196,8 +196,8 @@ Filmzie
 Flimmit
 Flix Premiere
 FlixFling
-FlixOlé
-FlixOlé Amazon Channel
+FlixOlï¿½
+FlixOlï¿½ Amazon Channel
 Foxtel Now
 France TV
 Freeform
@@ -343,7 +343,7 @@ Pantaya Amazon Channel
 Paramount Plus
 Paramount+ Amazon Channel
 Paramount+ Roku Premium Channel
-Pathé Thuis
+Pathï¿½ Thuis
 Paus
 Peacock
 Peacock Premium
@@ -353,7 +353,7 @@ Play Suisse
 Player
 Plex
 Pluto TV
-Pokémon Amazon Channel
+Pokï¿½mon Amazon Channel
 Pongalo Amazon Channel  
 Popcornflix
 Popcorntimes
@@ -524,3 +524,4 @@ tvo
 tvzavr
 wavve
 wedotv
+SkyShowtime
