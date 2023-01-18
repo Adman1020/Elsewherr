@@ -1,130 +1,142 @@
-import requests
-import re
-import time
-import yaml
-import logging
-import sys
 import argparse
+import logging
 import os
+import re
+from pyarr import SonarrAPI, RadarrAPI
+from tmdbv3api import TMDb, Find, Movie, TV
+import yaml
 
-script_directory = os.path.dirname(os.path.abspath(__file__))
+def get_args():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-v', '--verbose', action='store_true', help='Set log level to debug.')
+    parser.add_argument('-l', '--log-to-file', action='store_true', help='Enable logging to file. (logs\elsewherr.log)')
 
-parser = argparse.ArgumentParser()
-parser.add_argument(
-    '-d', '--debug',
-    help="Print lots of debugging statements",
-    action="store_const", dest="loglevel", const=logging.DEBUG,
-    default=logging.INFO,
-)
-args = parser.parse_args()    
-logging.basicConfig(
-    level=args.loglevel, 
-    format='%(asctime)s :: %(levelname)s :: %(message)s',
-    handlers=[
-        logging.FileHandler(filename=os.path.join(script_directory, 'elsewherr.log')),
-        logging.StreamHandler()
-    ]
-)
+    return parser.parse_args()
 
-logging.debug('DEBUG Logging Enabled')
-logging.debug('Loading Config and setting the list of required Providers')
-config = yaml.safe_load(open(os.path.join(script_directory, 'config.yaml')))
-requiredProvidersLower = [re.sub('[^A-Za-z0-9]+', '', x).lower() for x in config["requiredProviders"]]
-logging.debug(f'requiredProvidersLower: {requiredProvidersLower}')
+def setup(args):
+    global config
+    global logger
+    
+    dir = os.path.dirname(os.path.abspath(__file__))
+    logging.basicConfig(
+        level=logging.INFO, 
+        format='%(asctime)s :: %(levelname)s :: %(message)s',
+        handlers=list(filter(None, [
+            logging.FileHandler(filename=os.path.join(dir, 'logs', 'elsewherr.log')) if args.log_to_file else None,
+            logging.StreamHandler()
+        ]))
+    )
 
-# Request Headers
-radarrHeaders = {'Content-Type': 'application/json', "X-Api-Key":config["radarrApiKey"]}
-tmdbHeaders = {'Content-Type': 'application/json'}
+    logger = logging.getLogger('elsewherr')
+    logger.setLevel(logging.DEBUG if args.verbose else logging.INFO)
 
-# Create all Tags for Providers
-logging.debug('Create all Tags for Providers within Radarr')
-for requiredProvider in config["requiredProviders"]:
-    providerTag = (config["tagPrefix"] + re.sub('[^A-Za-z0-9]+', '', requiredProvider)).lower()
-    newTagJson = {
-            'label': providerTag,
-            'id': 0
-        }
-    logging.debug(f'newTagJson: {newTagJson}')
-    radarrTagsPost = requests.post(config["radarrUrl"]+'/api/v3/tag', json=newTagJson, headers=radarrHeaders)
-    logging.debug(f'radarrTagsPost Response: {radarrTagsPost}')
+    logger.info('Elsewherr starting.')
+    logger.debug('DEBUG Logging Enabled')
+    logger.debug('Loading Config and setting the list of required Providers')
+    config = yaml.safe_load(open(os.path.join(dir, 'config.yaml')))
+    logger.debug(config)
 
-# Get all Tags and create lists of those to remove and add
-logging.debug('Get all Tags and create lists of those to remove and add')
-radarrTagsGet = requests.get(config["radarrUrl"]+'/api/v3/tag', headers=radarrHeaders)
-logging.debug(f'radarrTagsGet Response: {radarrTagsGet}')
-existingTags = radarrTagsGet.json()
-logging.debug(f'existingTags: {existingTags}')
-providerTagsToRemove = []
-providerTagsToAdd = []
+    tmdb = TMDb()
+    tmdb.api_key = config['tmdb']['api_key']
 
-for existingTag in existingTags:
-    if config["tagPrefix"].lower() in existingTag["label"]:
-        logging.debug(f'Adding tag [{existingTag}] to the list of tags to be removed')
-        providerTagsToRemove.append(existingTag)
-    if str(existingTag["label"]).replace(config["tagPrefix"].lower(), '') in requiredProvidersLower:
-        logging.debug(f'Adding tag [{existingTag}] to the list of tags to be added')
-        providerTagsToAdd.append(existingTag)
+def get_tag_label_for_provider(provider_name):
+    return f"{config['prefix']}{re.sub('[^A-Za-z0-9]+', '', provider_name)}".lower()
 
-# Get all Movies from Radarr
-logging.debug('Getting all Movies from Radarr')
-radarrResponse = requests.get(config["radarrUrl"]+'/api/v3/movie', headers=radarrHeaders)
-logging.debug(f'radarrResponse Response: {radarrResponse}')
-movies = radarrResponse.json()
-logging.debug(f'Number of Movies: {len(movies)}')
+def process_radarr():
+    radarr = RadarrAPI(host_url=config['radarr']['url'], api_key=config['radarr']['api_key'])
+    movies = radarr.get_movie()
 
-# Work on each movie
-logging.debug('Working on all movies in turn')
-for movie in movies:
-    update = movie
-    #time.sleep(1)
-    logging.info("-------------------------------------------------------------------------------------------------")
-    logging.info("Movie: "+movie["title"])
-    logging.info("TMDB ID: "+str(movie["tmdbId"]))
-    logging.debug(f'Movie record from Radarr: {movie}')
+    for provider in config['providers']:      
+        response = radarr.create_tag(get_tag_label_for_provider(provider))
+        logger.debug('Response: %s' % response)
 
-    logging.debug("Getting the available providers for: "+movie["title"])
-    tmdbResponse = requests.get('https://api.themoviedb.org/3/movie/'+str(movie["tmdbId"])+'/watch/providers?api_key='+config["tmdbApiKey"], headers=tmdbHeaders)
-    logging.debug(f'tmdbResponse Response: {tmdbResponse}')
-    tmdbProviders = tmdbResponse.json()
-    logging.debug(f'Total Providers: {len(tmdbProviders["results"])}')
+    all_tags = radarr.get_tag()
+    tags_id_to_label = dict((tag['id'], tag['label']) for tag in all_tags)
+    tags_label_to_id = dict((tag['label'], tag['id']) for tag in all_tags)
 
-    # Check that flatrate providers exist for the chosen region
-    logging.debug("Check that flatrate providers exist for the chosen region")
-    try:
-        providers = tmdbProviders["results"][config["providerRegion"]]["flatrate"]
-        logging.debug(f'Flat Rate Providers: {providers}')
-    except KeyError:
-        logging.info("No Flatrate Providers")
-        continue
-
-    # Remove all provider tags from movie
-    logging.debug("Remove all provider tags from movie")
-    updateTags = movie.get("tags", [])
-    logging.debug(f'updateTags - Start: {updateTags}')
-    for providerIdToRemove in (providerIdsToRemove["id"] for providerIdsToRemove in providerTagsToRemove):
+    for movie in movies:
         try:
-            updateTags.remove(providerIdToRemove)
-            logging.debug(f'Removing providerId: {providerIdToRemove}')
-        except:
+            logger.debug('--------------------------------------------------')
+            logger.debug('Movie: %s' % movie['title'])
+            logger.debug(f"Existing Tags: {', '.join(map(lambda x: tags_id_to_label.get(x), movie['tags'])) if len(movie['tags']) > 0 else 'None'}")
+            tags_list = list(filter(lambda x: not tags_id_to_label.get(x).startswith(config['prefix'].lower()), movie['tags']))
+
+            providers = Movie().watch_providers(movie['tmdbId'])['results'].get(config['tmdb']['region'], {}).get('flatrate', [])
+            for provider in providers:
+                provider_name = provider['provider_name']
+
+                if provider_name in config['providers']:
+                    logger.debug('Adding provider: %s' % provider_name)
+                    tags_list.append(tags_label_to_id.get(get_tag_label_for_provider(provider_name)))
+                else:
+                    logger.debug('Skipping provider: %s' % provider_name)
+
+            logger.debug(f"Resultant Tags: {', '.join(map(lambda x: tags_id_to_label.get(x), tags_list)) if len(tags_list) > 0 else 'None'}")
+            movie['tags'] = tags_list
+            radarr.upd_movie(movie)
+        except Exception as e:
+            logger.error(e)
+            logger.error('Failed to process movie %s' % movie['title'])
             continue
 
-    # Add all required providers
-    logging.debug("Adding all provider tags to movie")
-    for provider in providers:
-        providerName = provider["provider_name"]
-        tagToAdd = (config["tagPrefix"] + re.sub('[^A-Za-z0-9]+', '', providerName)).lower()
-        for providerTagToAdd in providerTagsToAdd:
-            if tagToAdd in providerTagToAdd["label"]:
-                logging.info("Adding tag "+tagToAdd)
-                updateTags.append(providerTagToAdd["id"])
+    logger.debug('--------------------------------------------------')
+    logger.info('Processed %i movies.' % len(movies))
 
-    logging.debug(f'updateTags - End: {updateTags}')
-    update["tags"] = updateTags
-    logging.debug(f'Updated Movie record to send to Radarr: {update}')
+def process_sonarr():
+    sonarr = SonarrAPI(host_url=config['sonarr']['url'], api_key=config['sonarr']['api_key'])
+    all_series = sonarr.get_series()
 
-    # Update movie in Radarr
-    radarrUpdate = requests.put(config["radarrUrl"]+'/api/v3/movie', json=update, headers=radarrHeaders)
-    logging.info(radarrUpdate)
+    for provider in config['providers']:      
+        response = sonarr.create_tag(get_tag_label_for_provider(provider))
+        logger.debug('Response: %s' % response)
+
+    all_tags = sonarr.get_tag()
+    tags_id_to_label = dict((tag['id'], tag['label']) for tag in all_tags)
+    tags_label_to_id = dict((tag['label'], tag['id']) for tag in all_tags)
     
-if config['sonarrApiKey'] and config['sonarrUrl']:
-    import sonarr
+    for series in all_series:
+        try:
+            logger.debug('--------------------------------------------------')
+            logger.debug('Series: %s' % series['title'])
+            logger.debug(f"Existing Tags: {', '.join(map(lambda x: tags_id_to_label.get(x), series['tags'])) if len(series['tags']) > 0 else 'None'}")
+
+            result = Find().find_by_tvdb_id(str(series['tvdbId']))
+            tmdb_id = result['tv_results'][0]['id']
+            logger.debug('Found TMDB ID: %s' % tmdb_id)
+
+            tags_list = list(filter(lambda x: not tags_id_to_label.get(x).startswith(config['prefix'].lower()), series['tags']))
+
+            providers = TV().watch_providers(tmdb_id)['results'][config['tmdb']['region']].get('flatrate', [])
+            for provider in providers:
+                provider_name = provider['provider_name']
+
+                if provider_name in config['providers']:
+                    logger.debug('Adding provider: %s' % provider_name)
+                    tags_list.append(tags_label_to_id.get(get_tag_label_for_provider(provider_name)))
+                else:
+                    logger.debug('Skipping provider: %s' % provider_name)
+
+            logger.debug(f"Resultant Tags: {', '.join(map(lambda x: tags_id_to_label.get(x), tags_list)) if len(tags_list) > 0 else 'None'}")
+            series['tags'] = tags_list
+            sonarr.upd_series(series)
+        except Exception as e:
+            logger.error(e)
+            logger.error('Failed to process series %s' % series['title'])
+            continue
+
+    logger.debug('--------------------------------------------------')
+    logger.info('Processed %i series.' % len(all_series))
+
+def execute():
+    setup(get_args())
+    
+    if config['radarr']['enabled']:
+        process_radarr()
+    
+    if config['sonarr']['enabled']:
+        process_sonarr()
+
+    logger.info('Elsewherr completed.')
+
+if __name__ == '__main__':
+    execute()

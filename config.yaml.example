@@ -1,10 +1,18 @@
-tmdbApiKey: 
-providerRegion: GB
-radarrApiKey: 
-radarrUrl: http://localhost:7878
-sonarrApiKey: 
-sonarrUrl: http://localhost:8989
-requiredProviders:
-    - Netflix
-    - Disney Plus
-tagPrefix: elsewherr-
+tmdb:
+  api_key: xxx
+  region: CA
+radarr:
+  enabled: true
+  url: http://localhost:7878
+  api_key: xxx
+sonarr:
+  enabled: true
+  url: http://localhost:8989
+  api_key: xxx
+providers:
+  - Netflix
+  - Disney Plus
+prefix: elsewherr-
+
+
+
