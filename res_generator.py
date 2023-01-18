@@ -5,6 +5,9 @@ import yaml
 script_directory = os.path.dirname(os.path.abspath(__file__))
 config = yaml.safe_load(open(os.path.join(script_directory, 'config.yaml')))
 
+if not config['tmdb']['api_key']:
+    raise ImportError(name='config.yaml')
+
 tmdbHeaders = {'Content-Type': 'application/json'}
 
 tmdbResponseRegions = requests.get('https://api.themoviedb.org/3/watch/providers/regions?api_key='+config["tmdbApiKey"], headers=tmdbHeaders)
